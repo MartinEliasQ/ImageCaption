@@ -25,3 +25,6 @@ def extract_feactures(directory):
         features[image_id] = feature
         print('{}'.format(name))
     return features
+
+
+print("Changes")
