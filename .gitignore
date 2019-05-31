@@ -109,4 +109,6 @@ src/*
 __pycache__
 
 .vscode
-*/*vscode
+*/*vscode 
+
+*descriptions.*
