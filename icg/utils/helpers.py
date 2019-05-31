@@ -4,11 +4,13 @@ import os
 import shutil
 import zipfile
 
+
 def create_folder(path):
     try:
         Path(path).mkdir(parents=True, exist_ok=True)
     except:
         print("An error occured")
+
 
 def delete_folder(path: str):
     try:
@@ -16,6 +18,7 @@ def delete_folder(path: str):
             shutil.rmtree(path)
     except:
         print("An error occured")
+
 
 def download(url, dest="."):
     try:
@@ -26,6 +29,7 @@ def download(url, dest="."):
     except:
         print("An error occured : download")
 
+
 def unzip(file, dest="."):
     try:
         print("Unzip... {} in {} ".format(file, dest))
@@ -35,4 +39,3 @@ def unzip(file, dest="."):
         zip.close()
     except:
         print("An error occured: unzip")
-
