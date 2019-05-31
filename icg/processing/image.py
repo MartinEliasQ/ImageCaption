@@ -1,3 +1,4 @@
+from pickle import load
 from os import listdir
 from pickle import dump
 from keras.applications.vgg16 import VGG16
@@ -24,4 +25,13 @@ def extract_feactures(directory):
         image_id = name.split('.')[0]
         features[image_id] = feature
         print('{}'.format(name))
+    return features
+# load photo features
+
+
+def load_photo_features(filename, dataset):
+        # load all features
+    all_features = load(open(filename, 'rb'))
+    # filter features
+    features = {k: all_features[k] for k in dataset}
     return features
