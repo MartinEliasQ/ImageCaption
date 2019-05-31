@@ -26,3 +26,10 @@ def extract_feactures(directory):
         features[image_id] = feature
         print('{}'.format(name))
     return features
+
+
+def save_feactures(feactures, dest):
+    try:
+        dump(features, open('features.pkl', 'wb'))
+    except:
+        print("Some error saving pkl file")
