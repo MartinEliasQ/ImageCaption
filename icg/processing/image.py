@@ -33,3 +33,11 @@ def save_feactures(feactures, dest):
         dump(features, open('features.pkl', 'wb'))
     except:
         print("Some error saving pkl file")
+
+
+def load_photo_features(filename, dataset):
+        # load all features
+    all_features = load(open(filename, 'rb'))
+    # filter features
+    features = {k: all_features[k] for k in dataset}
+    return features
