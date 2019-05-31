@@ -1,3 +1,4 @@
+from pickle import load
 from os import listdir
 from pickle import dump
 from keras.applications.vgg16 import VGG16
@@ -25,6 +26,3 @@ def extract_feactures(directory):
         features[image_id] = feature
         print('{}'.format(name))
     return features
-
-
-print("Changes")
