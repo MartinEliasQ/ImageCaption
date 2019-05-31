@@ -1,5 +1,7 @@
 import string
 
+from collections import OrderedDict
+
 
 def load_doc(filename):
     file = open(filename, 'r')
@@ -59,3 +61,30 @@ def clean_descriptions(descriptions):
             desc = [word for word in desc if word.isalpha()]
             # store as string
             desc_list[i] = ' '.join(desc)
+
+def select_nums_words(freq, num_words):
+    order_freq = dict(OrderedDict(sorted(freq[0].items(), key=lambda x: x[1])))
+    frec_asc = OrderedDict(sorted(order_freq.items(), key=lambda kv: kv[1], reverse=True)) 
+    dic_frec_asc = dict(frec_asc)
+    list_key = list(dic_frec_asc.keys())
+    new_list_key = list_key[:num_words]
+    new_dic = dict((key , dic_frec_asc[key]) for key in new_list_key)
+    return new_dic.keys()
+
+# convert the loaded descriptions into a vocabulary of words
+def to_vocabulary(descriptions):
+	# build a list of all description strings
+	all_desc = set()
+	for key in descriptions.keys():
+		[all_desc.update(d.split()) for d in descriptions[key]]
+	return all_desc
+
+def save_descriptions(descriptions, filename):
+	lines = list()
+	for key, desc_list in descriptions.items():
+		for desc in desc_list:
+			lines.append(key + ' ' + desc)
+	data = '\n'.join(lines)
+	file = open(filename, 'w')
+	file.write(data)
+	file.close()
