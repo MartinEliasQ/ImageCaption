@@ -112,3 +112,5 @@ __pycache__
 */*vscode 
 
 *descriptions.*
+
+*.h5
