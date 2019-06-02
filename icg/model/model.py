@@ -54,3 +54,33 @@ def sample(preds, temperature=1.0):
     preds = exp_preds / np.sum(exp_preds)
     probas = np.random.multinomial(1, preds, 1)
     return np.argmax(probas)
+
+def model_injection(vocab_size, max_length):
+    # feature extractor model
+    inputs1 = Input(shape=(4096,))
+    fe1 = Dropout(0.5)(inputs1)
+    fe2 = Dense(256, activation='relu')(fe1)
+    # sequence model
+    inputs2 = Input(shape=(max_length,))
+    se1 = Embedding(vocab_size, 256, mask_zero=True)(inputs2)
+    se2 = Dropout(0.5)(se1)
+    
+    # Add feature extractor model and sequence model
+    add2model = add([fe2, se2])
+
+    #Inject both output into LSTM
+    Inj_model = LSTM(256)(add2model)
+    
+    #decoder1 = concatenate([fe2,se3])
+    decoder1 = Dense(256, activation='relu')(Inj_model)
+    #decoder2 = Dense(512, activation='relu')(decoder1)
+    outputs = Dense(vocab_size, activation='softmax')(decoder1)
+    # tie it together [image, seq] [word]
+
+    model = Model(inputs=[inputs1, inputs2], outputs=outputs)
+    # compile model
+    model.compile(loss='categorical_crossentropy', optimizer='adam')
+    # summarize model
+    model.summary()
+    #return model
+    return model
