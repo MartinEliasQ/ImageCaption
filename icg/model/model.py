@@ -122,12 +122,13 @@ def generate_desc(model, tokenizer, photo, max_length, mode):
 
 
 # evaluate the skill of the model
-def evaluate_model(model, descriptions, photos, tokenizer, max_length):
+def evaluate_model(model, descriptions, photos,
+                   tokenizer, max_length, mode=''):
     actual, predicted = list(), list()
     # step over the whole set
     for key, desc_list in descriptions.items():
         # generate description
-        yhat = generate_desc(model, tokenizer, photos[key], max_length)
+        yhat = generate_desc(model, tokenizer, photos[key], max_length, mode)
         # store actual and predicted
         references = [d.split() for d in desc_list]
         actual.append(references)
