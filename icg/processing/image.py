@@ -41,7 +41,7 @@ def extract_features(directory):
     return features
 
 
-def save_feactures(feactures, dest):
+def save_feactures(features, dest):
     try:
         dump(features, open(dest, 'wb'))
     except:
