@@ -37,7 +37,7 @@ def extract_features(directory):
         image_id = name.split('.')[0]
         # store feature
         features[image_id] = feature
-        print('>%s' % name)
+        #print('>%s' % name)
     return features
 
 
