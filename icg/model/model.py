@@ -82,5 +82,5 @@ def model_injection(vocab_size, max_length):
     model.compile(loss='categorical_crossentropy', optimizer='adam')
     # summarize model
     model.summary()
-    #plot_model(model, to_file='model.png', show_shapes=True)
+    #return model
     return model
