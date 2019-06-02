@@ -91,7 +91,7 @@ def model_injection(vocab_size, max_length):
     return model
 
 
-def generate_desc(model, tokenizer, photo, max_length):
+def generate_desc(model, tokenizer, photo, max_length, mode):
     # seed the generation process
     in_text = 'startseq'
     # iterate over the whole length of the sequence
@@ -103,9 +103,11 @@ def generate_desc(model, tokenizer, photo, max_length):
         # predict next word
         yhat = model.predict([photo, sequence], verbose=0)
         # convert probability to integer
-        yhat = sample(yhat)
-        # yhat = argmax(yhat)
-        # yhat = sample(yhat)
+
+        if mode == 'sample':
+            yhat = sample(yhat)
+        else:
+            yhat = np.argmax(yhat)
         # map integer to word
         word = word_for_id(yhat, tokenizer)
         # stop if we cannot map the word
