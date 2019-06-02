@@ -193,3 +193,10 @@ def data_generator(descriptions, photos, tokenizer, max_length, vocab_size):
             in_img, in_seq, out_word = create_sequences(
                 tokenizer, max_length, desc_list, photo, vocab_size)
             yield [[in_img, in_seq], out_word]
+
+
+def word_for_id(integer, tokenizer):
+    for word, index in tokenizer.word_index.items():
+        if index == integer:
+            return word
+    return None
