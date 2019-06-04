@@ -20,7 +20,7 @@ from nltk.translate.bleu_score import corpus_bleu
 from icg.processing.text import word_for_id
 
 
-def define_model(vocab_size, max_length):
+def define_model(vocab_size, max_length, fusion_mode="concat"):
 
     # feature extractor model
     inputs1 = Input(shape=(4096,))
@@ -32,8 +32,11 @@ def define_model(vocab_size, max_length):
     se2 = Dropout(0.5)(se1)
     se3 = LSTM(256)(se2)
     # decoder model
-    decoder1 = add([fe2, se3])
-    # decoder1 = concatenate([fe2,se3])
+    if fusion_mode == "concat":
+
+        decoder1 = add([fe2, se3])
+    else:
+        decoder1 = concatenate([fe2, se3])
     decoder2 = Dense(256, activation='relu')(decoder1)
     # decoder2 = Dense(512, activation='relu')(decoder1)
     outputs = Dense(vocab_size, activation='softmax')(decoder2)
